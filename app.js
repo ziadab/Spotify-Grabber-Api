@@ -1,5 +1,7 @@
 require("dotenv").config();
-var Spotify = require("node-spotify-api");
+const path = require("path");
+const fs = require("fs");
+const Spotify = require("node-spotify-api");
 const app = require("express")();
 const dataFormatter = require("./dataFromTrack");
 
@@ -25,7 +27,13 @@ app.get("/", async (req, res) => {
     }
     res.json(last);
   } else {
-    res.status(200).sendFile(__dirname + "/Phoenix.mp3");
+    const directoryPath = path.join(__dirname + "/songs");
+    const songs = fs.readdirSync(directoryPath);
+    res
+      .status(200)
+      .sendFile(
+        __dirname + `/songs/${songs[Math.floor(Math.random() * songs.length)]}`
+      );
   }
 });
 
