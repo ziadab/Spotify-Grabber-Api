@@ -4,6 +4,9 @@ const fs = require("fs");
 const Spotify = require("node-spotify-api");
 const app = require("express")();
 const dataFormatter = require("./dataFromTrack");
+const CORS = require("cors");
+
+app.use(CORS());
 
 var spotify = new Spotify({
   id: process.env.CLIENT_ID,
