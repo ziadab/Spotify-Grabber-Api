@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
       data.artists.items === undefined ||
       data.artists.items.length == 0
     ) {
-      res.json({ error: "Nothing found :'(" }).sendStatus(404);
+      res.status(404).json({ error: "Nothing found :'(" });
     }
     let last;
     if (type == "track") {
@@ -41,7 +41,7 @@ app.get("/", async (req, res) => {
     } else {
       last = data.artists.items[0];
     }
-    res.json(last).sendStatus(200);
+    res.status(200).json(last);
   } else {
     const directoryPath = path.join(__dirname + "/songs");
     const songs = fs.readdirSync(directoryPath);
