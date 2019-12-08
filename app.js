@@ -11,6 +11,7 @@ app.use(CORS());
 var spotify = new Spotify({
   id: process.env.CLIENT_ID,
   secret: process.env.CLIENT_SECRET
+  //nothing
 });
 
 app.get("/", async (req, res) => {
