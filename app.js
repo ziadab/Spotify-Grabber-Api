@@ -32,16 +32,17 @@ app.get("/", async (req, res) => {
       data.artists.items.length == 0
     ) {
       res.status(404).json({ error: "Nothing found :'(" });
-    }
-    let last;
-    if (type == "track") {
-      last = await dataFormatter(data.tracks.items[0], type);
-    } else if (type == "album") {
-      last = await dataFormatter(data.albums.items[0], type);
     } else {
-      last = data.artists.items[0];
+      let last;
+      if (type == "track") {
+        last = await dataFormatter(data.tracks.items[0], type);
+      } else if (type == "album") {
+        last = await dataFormatter(data.albums.items[0], type);
+      } else {
+        last = data.artists.items[0];
+      }
+      res.status(200).json(last);
     }
-    res.status(200).json(last);
   } else {
     const directoryPath = path.join(__dirname + "/songs");
     const songs = fs.readdirSync(directoryPath);
