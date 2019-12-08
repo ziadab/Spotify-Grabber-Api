@@ -29,9 +29,9 @@ app.get("/", async (req, res) => {
       } else {
         last = await dataFormatter(data.albums.items[0], type);
       }
-      res.status(404).json(last);
+      res.status(200).json(last);
     } catch {
-      res.status(200).json({ error: "nothing found :'(" });
+      res.status(404).json({ error: "nothing found :'(" });
     }
   } else {
     const directoryPath = path.join(__dirname + "/songs");
