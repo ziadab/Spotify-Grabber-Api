@@ -23,6 +23,16 @@ app.get("/", async (req, res) => {
       type: type,
       query: title
     });
+    if (
+      data.tracks.items === undefined ||
+      data.tracks.items.length == 0 ||
+      data.albums.items === undefined ||
+      data.albums.items.length == 0 ||
+      data.artists.items === undefined ||
+      data.artists.items.length == 0
+    ) {
+      res.json({ error: "Nothing found :'(" }).sendStatus(404);
+    }
     let last;
     if (type == "track") {
       last = await dataFormatter(data.tracks.items[0], type);
@@ -31,7 +41,7 @@ app.get("/", async (req, res) => {
     } else {
       last = data.artists.items[0];
     }
-    res.json(last);
+    res.json(last).sendStatus(200);
   } else {
     const directoryPath = path.join(__dirname + "/songs");
     const songs = fs.readdirSync(directoryPath);

@@ -8,6 +8,7 @@ async function artistGetting(artists) {
 }
 
 async function dataFromTrack(data, type) {
+  console.log(data);
   const artists = await artistGetting(data.artists);
   let albumName, releaseDay, albumCover;
 
