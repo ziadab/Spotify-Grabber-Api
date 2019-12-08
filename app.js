@@ -11,7 +11,6 @@ app.use(CORS());
 var spotify = new Spotify({
   id: process.env.CLIENT_ID,
   secret: process.env.CLIENT_SECRET
-  //nothing
 });
 
 app.get("/", async (req, res) => {
@@ -23,25 +22,16 @@ app.get("/", async (req, res) => {
       type: type,
       query: title
     });
-    if (
-      data.tracks.items === undefined ||
-      data.tracks.items.length == 0 ||
-      data.albums.items === undefined ||
-      data.albums.items.length == 0 ||
-      data.artists.items === undefined ||
-      data.artists.items.length == 0
-    ) {
-      res.status(404).json({ error: "Nothing found :'(" });
-    } else {
+    try {
       let last;
       if (type == "track") {
         last = await dataFormatter(data.tracks.items[0], type);
-      } else if (type == "album") {
-        last = await dataFormatter(data.albums.items[0], type);
       } else {
-        last = data.artists.items[0];
+        last = await dataFormatter(data.albums.items[0], type);
       }
-      res.status(200).json(last);
+      res.status(404).json(last);
+    } catch {
+      res.status(200).json({ error: "nothing found :'(" });
     }
   } else {
     const directoryPath = path.join(__dirname + "/songs");
