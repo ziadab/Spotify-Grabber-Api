@@ -24,9 +24,11 @@ app.get("/", async (req, res) => {
     });
     let last;
     if (type == "track") {
-      last = await dataFormatter(data.tracks.items[0]);
+      last = await dataFormatter(data.tracks.items[0], type);
+    } else if (type == "album") {
+      last = await dataFormatter(data.albums.items[0], type);
     } else {
-      last = await dataFormatter(data.albums.items[0]);
+      last = data.artists.items[0];
     }
     res.json(last);
   } else {
