@@ -1,9 +1,10 @@
 const axios = require("axios");
 
 async function deezerData(title) {
+  console.log("Daz l deezerData");
   const res = await axios.get(`https://api.deezer.com/search?q=${title}`);
   const data = res.data.data[0];
-
+  console.log("data kayna");
   let albumCover;
   if (!data.album.hasOwnProperty("picture")) {
     if (data.album.hasOwnProperty("cover_xl")) {
