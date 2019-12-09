@@ -6,7 +6,7 @@ const app = require("express")();
 const dataFormatter = require("./dataFromTrack");
 const CORS = require("cors");
 const deezerGetter = require("./deezerData");
-const axios = require("axios");
+// const axios = require("axios");
 
 app.use(CORS());
 
@@ -35,7 +35,7 @@ app.get("/", async (req, res) => {
     } catch {
       try {
         console.log("deezer bda");
-        const data = await deezerData(title);
+        const data = await deezerGetter(title);
         console.log("daz hna");
         res.status(200).json(data); //
       } catch {
@@ -57,30 +57,3 @@ app.get("/", async (req, res) => {
 app.listen(process.env.PORT || 5000, () => {
   console.log("Hope it work");
 });
-
-async function deezerData(title) {
-  console.log("Daz l deezerData");
-  const res = await axios.get(
-    encodeURI(`https://api.deezer.com/search?q=${title}`)
-  );
-  const data = await res.data.data[0];
-  console.log(res);
-  let albumCover;
-  if (!data.album.hasOwnProperty("picture")) {
-    if (data.album.hasOwnProperty("cover_xl")) {
-      albumCover = data.album["cover_xl"];
-    } else {
-      albumCover = data.album["cover_big"]; // dfntly exsists (thts bad)
-    }
-  }
-
-  console.log(data);
-
-  return {
-    title: data.title,
-    artists: [data.artist.name],
-    albumName: data.album.title,
-    albumCover,
-    releaseDay: new Date().toJSON().slice(0, 10)
-  };
-}
