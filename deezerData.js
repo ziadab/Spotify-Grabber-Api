@@ -14,13 +14,7 @@ async function deezerData(title) {
     }
   }
 
-  console.log({
-    title: data.title,
-    artists: [data.artist.name],
-    albumName: data.album.title,
-    albumCover,
-    releaseDay: new Date().toJSON().slice(0, 10)
-  });
+  console.log(data);
 
   return {
     title: data.title,
