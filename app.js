@@ -34,9 +34,14 @@ app.get("/", async (req, res) => {
     } catch {
       try {
         console.log("deezer bda");
-        const data = await deezerGetter(title);
-        console.log("daz hna");
-        res.status(200).json(data); //
+        await deezerGetter(title)
+          .then(data => {
+            res.status(200).json(data);
+          })
+          .catch(err => {
+            res.end(err).status(400);
+          });
+        //
       } catch {
         console.log("se5eta");
         res.status(404).json({ error: "Walo a bb gir reje3e fin konti" });
