@@ -5,6 +5,7 @@ const Spotify = require("node-spotify-api");
 const app = require("express")();
 const dataFormatter = require("./dataFromTrack");
 const CORS = require("cors");
+const deezerGetter = require("./deezerData");
 
 app.use(CORS());
 
@@ -31,7 +32,12 @@ app.get("/", async (req, res) => {
       }
       res.status(200).json(last);
     } catch {
-      res.status(404).json({ error: "nothing found :'(" });
+      try {
+        const data = await deezerGetter(title);
+        res.status(200).json(data);
+      } catch {
+        res.status(404).json({ error: "Walo a bb gir reje3e fin konti" });
+      }
     }
   } else {
     const directoryPath = path.join(__dirname + "/songs");
