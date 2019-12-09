@@ -6,6 +6,7 @@ const app = require("express")();
 const dataFormatter = require("./dataFromTrack");
 const CORS = require("cors");
 const deezerGetter = require("./deezerData");
+const axios = require("axios");
 
 app.use(CORS());
 
