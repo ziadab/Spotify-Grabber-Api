@@ -60,7 +60,9 @@ app.listen(process.env.PORT || 5000, () => {
 
 async function deezerData(title) {
   console.log("Daz l deezerData");
-  const res = await axios.get(`https://api.deezer.com/search?q=${title}`);
+  const res = await axios.get(
+    encodeURI(`https://api.deezer.com/search?q=${title}`)
+  );
   const data = await res.data.data[0];
   console.log(res);
   let albumCover;
