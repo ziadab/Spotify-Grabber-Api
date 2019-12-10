@@ -20,8 +20,8 @@ async function deezerData(title) {
     title: data.title,
     artists: [data.artist.name],
     albumName: data.album.title,
-    albumCover,
-    releaseDay: new Date().toJSON().slice(0, 10)
+    albumCover
+    //releaseDay: new Date().toJSON().slice(0, 10)
   };
 }
 

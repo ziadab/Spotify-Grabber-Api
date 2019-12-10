@@ -13,11 +13,9 @@ async function dataFromTrack(data, type) {
 
   if (type == "track") {
     albumName = data.album.name;
-    releaseDay = data.album["release_date"];
     albumCover = data.album.images[0].url;
   } else {
     albumName = data.name;
-    releaseDay = data["release_date"];
     albumCover = data.images[0].url;
   }
 
@@ -25,7 +23,6 @@ async function dataFromTrack(data, type) {
     title: data.name,
     artists,
     albumName,
-    releaseDay,
     albumCover
   };
 }
