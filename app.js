@@ -12,18 +12,23 @@ app.use(CORS());
 
 var spotify = new Spotify({
   id: process.env.CLIENT_ID,
-  secret: process.env.CLIENT_SECRET
+  secret: process.env.CLIENT_SECRET,
 });
 
 app.get("/", async (req, res) => {
   const type = req.query.type;
   const title = req.query.title;
+  let data;
 
   if (type != null && title != null) {
-    const data = await spotify.search({
-      type: type,
-      query: title
-    });
+    try {
+      data = await spotify.search({
+        type: type,
+        query: title,
+      });
+    } catch (e) {
+      res.status(404).json({ error: "Walo a bb gir reje3e fin konti" });
+    }
     try {
       let last;
       if (type == "track") {
